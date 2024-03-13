@@ -1,0 +1,16 @@
+name: Kestra CI/CD
+
+on: [push]
+
+jobs:
+  # Start by validating all kestra resources
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate `app.htch.comms` flows
+        uses: kestra-io/validate-action@v0.14.0
+        with:
+          directory: ./flows
+          resource: flow

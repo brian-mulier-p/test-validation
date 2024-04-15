@@ -1,0 +1,33 @@
+id: alert-success
+namespace: app.htch.comms
+
+variables:
+  discord_webhook_url: "http://google.com"
+  deployment_url: "http://google.com"
+  instance_name: "nope"
+
+description: |
+  Reports successes of processing
+
+tasks:
+  - id: discord
+    type: "io.kestra.plugin.fs.http.Request"
+    uri: "{{ vars.discord_webhook_url }}"
+    method: "POST"
+    contentType: "application/json"
+    body: |
+      {
+        "content": "[{{ vars.instance_name }}] We just helped someone view a model. No big deal. See [Workflow]({{ vars.deployment_url }}/ui/executions/{{ trigger.namespace }}/{{ trigger.flowId }}/{{ trigger.executionId }}/gantt) ✅",
+        "flags": 4096
+      }
+
+triggers:
+  - id: listen
+    type: io.kestra.core.models.triggers.types.Flow
+    conditions:
+      - type: io.kestra.core.models.conditions.types.ExecutionStatusCondition
+        in:
+          - SUCCESS
+      - type: io.kestra.core.models.conditions.types.ExecutionFlowCondition
+        flowId: pipeline-main
+        namespace: app.htch.assets.pipelines

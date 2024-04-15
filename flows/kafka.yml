@@ -1,0 +1,44 @@
+id: kafka-produce
+namespace: app.htch.comms
+
+# TEMPORARY: until Github Action catches up with Kestra
+# labels:
+#   - key: owner
+#     value: michele@htch.app
+#   - key: team
+#     value: comms
+
+variables:
+  kafka_bootstrap_endpoint: "http://google.com"
+  kafka_username: "nope"
+  kafka_password: "nope"
+
+inputs:
+  - name: topic
+    type: STRING
+    defaults: pipelinetest
+    required: true
+    description: |
+      Name of topic to send message to.
+
+  - name: body
+    type: STRING
+    defaults: '{ "message": "hello" }'
+    required: true
+    description: |
+      Body of message.
+
+tasks:
+  - id: produce
+    type: io.kestra.plugin.kafka.Produce
+    topic: "{{ inputs.topic }}"
+    from:
+      value: "{{ inputs.body }}"
+    properties:
+      bootstrap.servers: "{{ vars.kafka_bootstrap_endpoint }}"
+      sasl.mechanism: "SCRAM-SHA-512"
+      security.protocol: "SASL_SSL"
+      sasl.jaas.config: |
+        org.apache.kafka.common.security.scram.ScramLoginModule required username="{{ vars.kafka_username }}" password="{{ vars.kafka_password }}";
+    keySerializer: STRING
+    valueSerializer: STRING

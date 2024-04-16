@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Deploy `app.htch.assets.comms` flows"
-        uses: kestra-io/deploy-action@v0.14.0
+        uses: kestra-io/deploy-action@v0.16.0
         with:
           namespace: app.htch.comms
           directory: ./flows

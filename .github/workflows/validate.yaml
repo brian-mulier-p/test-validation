@@ -1,4 +1,4 @@
-name: Kestra CI/CD
+name: Validate Kestra CI/CD
 
 on: [push]
 

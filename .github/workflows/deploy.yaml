@@ -1,4 +1,4 @@
-name: Kestra CI/CD
+name: Deploy Kestra CI/CD
 
 on: [push]
 

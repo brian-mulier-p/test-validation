@@ -14,5 +14,3 @@ jobs:
           directory: ./flows
           resource: flow
           server: ${{ secrets.KESTRA_HOST_MAIN }}
-          user: ${{ secrets.KESTRA_USER_MAIN }}
-          password: ${{ secrets.KESTRA_PASSWORD_MAIN }}

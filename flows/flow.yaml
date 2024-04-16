@@ -1,6 +1,0 @@
-id: a
-namespace: b
-tasks:
-  - id: pause
-    type: io.kestra.core.tasks.flows.Pause
-    delay: PT1S

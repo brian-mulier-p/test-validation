@@ -3,7 +3,7 @@ namespace: app.htch.comms
 
 tasks:
   - id: greeting
-    type: io.kestra.core.tasks.log.Log
+    type: io.kestra.plugin.core.log.Log
     message:
       - Kestra team wishes you a great day 👋
       - If you need some help, reach out via Slack
